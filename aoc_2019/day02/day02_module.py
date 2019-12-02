@@ -11,4 +11,9 @@ def intCode(opCode, value1, value2):
         raise ValueError
 
 def program(arrayInput):
+    opCode = arrayInput[0]
+    positionValue1 = arrayInput[1]
+    positionValue2 = arrayInput[2]
+    positionResult = arrayInput[3]
+    arrayInput[positionResult] = intCode(opCode, arrayInput[positionValue1], arrayInput[positionValue2])
     pass
