@@ -23,7 +23,7 @@ def test_day02_opcode99():
         opCode = 99
         value1 = 2
         value2 = 3
-        result = intCode(opCode, value1, value2)
+        intCode(opCode, value1, value2)
 
 
 def test_day02_opcode_wrong():
@@ -31,7 +31,7 @@ def test_day02_opcode_wrong():
         opCode = 30
         value1 = 2
         value2 = 3
-        result = intCode(opCode, value1, value2)
+        intCode(opCode, value1, value2)
 
 def test_day02_testProgram01():
     arrayInput = [1,9,10,3,2,3,11,0,99,30,40,50]

@@ -18,7 +18,12 @@ def program(arrayInput):
         positionValue1 = arrayInput[position + 1]
         positionValue2 = arrayInput[position + 2]
         positionResult = arrayInput[position + 3]
-        arrayInput[positionResult] = intCode(opCode, arrayInput[positionValue1], arrayInput[positionValue2])
-        iteration += iteration + 1
+        value1 = arrayInput[positionValue1]
+        value2 = arrayInput[positionValue2]
+        try:
+            arrayInput[positionResult] = intCode(opCode, value1, value2)
+        except UserQuit:
+            break
+        iteration += 1
         position = iteration * 4
     pass
