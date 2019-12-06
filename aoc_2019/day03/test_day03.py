@@ -63,16 +63,32 @@ def test_day03_testIntersection(coordinates, expectedResult):
 
 testCloserIntersectionData = [
     (
-        (
+        [
             (3,3),
             (6,5)
-        ),
+        ],
         (3,3)
+    ),
+    (
+        [
+            (8,9),
+            (6,5)
+        ],
+        (6,5)
+    ),
+    (
+        [
+            (2,2),
+            (-1,-1)
+        ],
+        (-1,-1)
     )
 ]
 
 testCloserIntersectionIds = [
-    "teste de proximidade 1"
+    "teste de proximidade 1",
+    "teste de proximidade 2",
+    "teste de proximidade 3"
 ]
 
 @pytest.mark.parametrize("intersections, expectedResult", testCloserIntersectionData, ids=testCloserIntersectionIds)
@@ -83,11 +99,26 @@ testDistanceFromPointData = [
     (
         (3,3),
         6
+    ),
+    (
+        (8,7),
+        15
+    ),
+    (
+        (-1,-3),
+        4
+    ),
+    (
+        (3,-7),
+        10
     )
 ]
 
 testDistanceFromPointIds = [
-    "teste de disntancia 1"
+    "teste de disntancia 1",
+    "teste de disntancia 2",
+    "teste de disntancia 3",
+    "teste de disntancia 4"
 ]
 
 @pytest.mark.parametrize("point, expectedResult", testDistanceFromPointData, ids=testDistanceFromPointIds)
