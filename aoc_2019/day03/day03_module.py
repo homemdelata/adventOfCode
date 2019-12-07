@@ -105,3 +105,43 @@ def getDistance(point):
     a = point[0] if point[0] > 0 else -point[0]
     b = point[1] if point[1] > 0 else -point[1]
     return a + b
+
+def getSteps(wire, point):
+    steps = 0
+    points = wire.points
+    coordinates = wire.coordinates
+    lines = wire.lines
+    
+    def getCoordinateDistance(coordinate):
+        return int(coordinate[1:])
+
+    def isPointInLine(point, line):
+        isXInLine = True
+        isYInLine = True
+        if isHorizontal(line):
+            isXInLine = isXInLine and line[0][0] in range(line[0][0], line[1][0], 1 if line[0][0] <= line[1][0] else -1)
+            isYInLine = isYInLine and point[1] == line[0][1]
+        else:
+            isXInLine = isXInLine and point[0] == line[0][0]
+            isYInLine = isYInLine and line[0][1] in range(line[0][1], line[1][1], 1 if line[0][1] <= line[1][1] else -1)
+        return isXInLine and isYInLine
+    
+    index = 0
+    currentPoint = points[index]
+    while not isPointInLine(point, lines[index]):
+        steps += getCoordinateDistance(coordinates[index])
+        index += 1
+        currentPoint = points[index]
+    #adiciona os passos até o ponto
+    steps += abs(currentPoint[0]-point[0]) + abs(currentPoint[1]-point[1])
+
+    return steps
+
+def getTotalSteps(wire1, wire2):
+    intersections = checkIntersections(wire1, wire2)
+    firstIntersection = intersections[0]
+    totalSteps = 0
+    totalSteps += getSteps(wire1, firstIntersection)
+    totalSteps += getSteps(wire2, firstIntersection)
+
+    return totalSteps

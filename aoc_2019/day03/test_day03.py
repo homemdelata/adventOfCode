@@ -1,6 +1,6 @@
 import pytest
 
-from day03_module import Wire, checkIntersections, closerIntersection, getDistance
+from day03_module import Wire, checkIntersections, closerIntersection, getDistance, getSteps, getTotalSteps
 
 testWireData = [
         (
@@ -164,3 +164,75 @@ def test_day03_testDistanceFromCoordinates(coordinates, expectedResult):
     intersections = checkIntersections(wire1, wire2)
     closerPoint = closerIntersection(intersections)
     assert getDistance(closerPoint) == expectedResult
+
+testStepsToPointData = [
+    (
+        ("R8","U5","L5","D3"),
+        (3,3),
+        20
+    ),
+    (
+        ("R8","U5","L5","D3"),
+        (6,5),
+        15
+    ),
+    (
+        ("U7","R6","D4","L4"),
+        (3,3),
+        20
+    ),
+    (
+        ("U7","R6","D4","L4"),
+        (6,5),
+        15
+    )
+]
+
+testStepsToPointIds = [
+    "teste de passos 1",
+    "teste de passos 2",
+    "teste de passos 3",
+    "teste de passos 4"
+]
+
+@pytest.mark.parametrize("coordinates, point, expectedResult", testStepsToPointData, ids=testStepsToPointIds)
+def test_day03_testStepsToPoint(coordinates, point, expectedResult):
+    wire = Wire(coordinates)
+    assert getSteps(wire, point) == expectedResult
+
+testTotalStepsData = [
+    (
+        [
+            ("R8","U5","L5","D3"),
+            ("U7","R6","D4","L4")
+        ],
+        30
+    ),
+    (
+        [
+            ("R75","D30","R83","U83","L12","D49","R71","U7","L72"),
+            ("U62","R66","U55","R34","D71","R55","D58","R83")
+        ],
+        610
+    ),
+    (
+        [
+            ("R98","U47","R26","D63","R33","U87","L62","D20","R33","U53","R51"),
+            ("U98","R91","D20","R16","D67","R40","U7","R15","U6","R7")
+        ],
+        410
+    )
+]
+
+testTotalStepsIds = [
+    "teste de passos total 1",
+    "teste de passos total 2",
+    "teste de passos total 3"
+]
+
+@pytest.mark.parametrize("coordinates, expectedResult", testTotalStepsData, ids=testTotalStepsIds)
+def test_day03_testTotalStpes(coordinates, expectedResult):
+    wire1 = Wire(coordinates[0])
+    wire2 = Wire(coordinates[1])
+    assert getTotalSteps(wire1, wire2) == expectedResult
+
