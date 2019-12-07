@@ -5,44 +5,46 @@ from day03_module import Wire, checkIntersections, closerIntersection, getDistan
 testWireData = [
         (
             ("R8","U5","L5","D3"),
-            (
-                (0,0), (8,0),
-                (8,0), (8,5),
-                (8,5), (3,5),
-                (3,5), (3,2)
-            )
+            [
+                (0,0),
+                (8,0),
+                (8,5),
+                (3,5),
+                (3,2)
+            ]
         ),
         (
             ("U7","R6","D4","L4"),
-            (
-                (0,0), (0,7),
-                (0,7), (6,7),
-                (6,7), (6,3),
-                (6,3), (2,3)
-            )
+            [
+                (0,0),
+                (0,7),
+                (6,7),
+                (6,3),
+                (2,3)
+            ]
         )
 ]
 
 testWireIds = [
-    "teste de linhas 1",
-    "teste de linhas 2"
+    "teste de pontos 1",
+    "teste de pontos 2"
 ]
 
 @pytest.mark.parametrize("coordinates, expectedResult", testWireData, ids=testWireIds)
 def test_day03_testWire(coordinates, expectedResult):
     testWire = Wire(coordinates)
-    assert testWire.lines == expectedResult
+    assert testWire.points == expectedResult
 
 testIntersectionData = [
         (
-            (
+            [
                 ("R8","U5","L5","D3"),
                 ("U7","R6","D4","L4")
-            )
-            ,(
+            ]
+            ,[
                 (3,3),
                 (6,5)
-            )
+            ]
         )
 ]
 
@@ -55,7 +57,7 @@ def test_day03_testIntersection(coordinates, expectedResult):
     testWire1 = Wire(coordinates[0])
     testWire2 = Wire(coordinates[1])
     intersections = checkIntersections(testWire1, testWire2)
-    result = False
+    result = True
     for intersection in intersections:
         result = result and (intersection in expectedResult)
 
@@ -127,24 +129,24 @@ def test_day03_testDistanceFromPoint(point, expectedResult):
 
 testDistanceFromCoordinatesData = [
     (
-        (
+        [
             ("R8","U5","L5","D3"),
             ("U7","R6","D4","L4")
-        ),
+        ],
         6
     ),
     (
-        (
+        [
             ("R75","D30","R83","U83","L12","D49","R71","U7","L72"),
             ("U62","R66","U55","R34","D71","R55","D58","R83")
-        ),
+        ],
         159
     ),
     (
-        (
+        [
             ("R98","U47","R26","D63","R33","U87","L62","D20","R33","U53","R51"),
             ("U98","R91","D20","R16","D67","R40","U7","R15","U6","R7")
-        ),
+        ],
         135
     )
 ]
@@ -155,7 +157,7 @@ testDistanceFromCorrdinatesIds = [
     "teste de disntancia 3"
 ]
 
-@pytest.mark.parametrize("coordinates, expectedResult", testDistanceFromPointData, ids=testDistanceFromPointIds)
+@pytest.mark.parametrize("coordinates, expectedResult", testDistanceFromCoordinatesData, ids=testDistanceFromCorrdinatesIds)
 def test_day03_testDistanceFromCoordinates(coordinates, expectedResult):
     wire1 = Wire(coordinates[0])
     wire2 = Wire(coordinates[1])
