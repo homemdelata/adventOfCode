@@ -1,6 +1,6 @@
 import pytest
 
-from day04_module import hasDouble, neverDecrease, isValidPassword
+from day04_module import hasDouble, neverDecrease, isValidPassword, doubleNotInLargeGroup
 
 testDoublesData = [
     ('111111', True),
@@ -18,9 +18,9 @@ testNeverDecreaseData = [
     ('123789', True)
 ]
 
-@pytest.mark.parametrize("password, hasDoubleConfirmation", testNeverDecreaseData)
-def test_day04_neverDecrease(password, hasDoubleConfirmation):
-    assert neverDecrease(password) == hasDoubleConfirmation
+@pytest.mark.parametrize("password, neverDecreaseConfirmation", testNeverDecreaseData)
+def test_day04_neverDecrease(password, neverDecreaseConfirmation):
+    assert neverDecrease(password) == neverDecreaseConfirmation
 
 testValidData = [
     ('111111', True),
@@ -28,8 +28,17 @@ testValidData = [
     ('123789', False)
 ]
 
-@pytest.mark.parametrize("password, hasDoubleConfirmation", testValidData)
-def test_day04_validPassword(password, hasDoubleConfirmation):
-    assert isValidPassword(password) == hasDoubleConfirmation
+@pytest.mark.parametrize("password, isValidConfirmation", testValidData)
+def test_day04_validPassword(password, isValidConfirmation):
+    assert isValidPassword(password) == isValidConfirmation
 
+testDoubleNotInLargeGroupData = [
+    ('112233', True),
+    ('123444', False),
+    ('111122', True) #existe um par de 22 que é o par de duplo mesmo com o 1 passando de 2
+]
+
+@pytest.mark.parametrize("password, doubleNotInLargeGroupConfirmation", testDoubleNotInLargeGroupData)
+def test_day04_doubleNotInLargeGroup(password, doubleNotInLargeGroupConfirmation):
+    assert doubleNotInLargeGroup(password) == doubleNotInLargeGroupConfirmation
 
