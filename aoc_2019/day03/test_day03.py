@@ -1,6 +1,6 @@
 import pytest
 
-from day03_module import Wire, checkIntersections, closerIntersection, getDistance, getSteps, getTotalSteps
+from day03_module import Wire, checkIntersections, closerIntersection, getDistance, getSteps, getLowerSteps
 
 testWireData = [
         (
@@ -200,7 +200,7 @@ def test_day03_testStepsToPoint(coordinates, point, expectedResult):
     wire = Wire(coordinates)
     assert getSteps(wire, point) == expectedResult
 
-testTotalStepsData = [
+testLowerStepsData = [
     (
         [
             ("R8","U5","L5","D3"),
@@ -224,15 +224,15 @@ testTotalStepsData = [
     )
 ]
 
-testTotalStepsIds = [
+testLowerStepsIds = [
     "teste de passos total 1",
     "teste de passos total 2",
     "teste de passos total 3"
 ]
 
-@pytest.mark.parametrize("coordinates, expectedResult", testTotalStepsData, ids=testTotalStepsIds)
+@pytest.mark.parametrize("coordinates, expectedResult", testLowerStepsData, ids=testLowerStepsIds)
 def test_day03_testTotalStpes(coordinates, expectedResult):
     wire1 = Wire(coordinates[0])
     wire2 = Wire(coordinates[1])
-    assert getTotalSteps(wire1, wire2) == expectedResult
+    assert getLowerSteps(wire1, wire2) == expectedResult
 
