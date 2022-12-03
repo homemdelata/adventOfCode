@@ -59,14 +59,31 @@ def jokenpo_score(opponent, you):
     return result.value + your_hand.value
 
 def correct_jokenpo_score(opponent, expected_end):
-    pass
-
+    opponent_hand = opponent_hand_converter(opponent)
+    expected_end_result = expected_end_converter(expected_end)
+    match expected_end_result:
+        case jokenpo_result.lost:
+            if opponent_hand == jokenpo_hand.rock:
+                your_hand = jokenpo_hand.scissors
+            else:
+                your_hand = jokenpo_hand(opponent_hand.value - 1)
+        case jokenpo_result.draw:
+            your_hand = opponent_hand
+        case jokenpo_result.win:
+            if opponent_hand == jokenpo_hand.scissors:
+                your_hand = jokenpo_hand.rock
+            else:
+                your_hand = jokenpo_hand(opponent_hand.value + 1)
+        case _:
+            raise Exception("Result not mapped")
+    return expected_end_result.value + your_hand.value
+            
 
 def total_score(strategy):
     return sum([jokenpo_score(i[0], i[1]) for i in strategy])
 
 def correct_total_score(strategy):
-    pass
+    return sum([correct_jokenpo_score(i[0], i[1]) for i in strategy])
 
 def day02_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
@@ -74,6 +91,17 @@ def day02_part1(input_name):
         strategy = [game.split(" ") for game in input.strip().split("\n")]
         score = total_score(strategy)
     print("Day 02 - Part 1 - {}: {}".format(input_name, score))
+
+def day02_part2(input_name):
+    with open(os.path.join(sys.path[0], input_name), 'r') as file:
+        input = file.read()
+        strategy = [game.split(" ") for game in input.strip().split("\n")]
+        score = correct_total_score(strategy)
+    print("Day 02 - Part 2 - {}: {}".format(input_name, score))
+
     
 day02_part1("test.txt")
 day02_part1("input.txt")
+
+day02_part2("test.txt")
+day02_part2("input.txt")
