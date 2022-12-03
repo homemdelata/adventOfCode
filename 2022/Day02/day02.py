@@ -46,9 +46,7 @@ def jokenpo_score(opponent, you):
         result = jokenpo_result.draw
     elif opponent_hand == jokenpo_hand.scissors and your_hand == jokenpo_hand.rock:
         result = jokenpo_result.win
-    elif opponent_hand == jokenpo_hand.rock and your_hand == jokenpo_hand.scissors:
-        result = jokenpo_result.lost
-    elif opponent_hand.value < your_hand.value:
+    elif opponent_hand.value == your_hand.value - 1:
         result = jokenpo_result.win
     return result.value + your_hand.value
 
