@@ -25,7 +25,6 @@ def opponent_hand_converter(opponent_hand):
         case _:
             raise Exception("Hand not mapped")
 
-
 def your_hand_converter(your_hand):
     match your_hand:
         case "X":
@@ -37,6 +36,17 @@ def your_hand_converter(your_hand):
         case _:
             raise Exception("Hand not mapped")
 
+def expected_end_converter(expected_end):
+    match expected_end:
+        case "X":
+            return jokenpo_result.lost
+        case "Y":
+            return jokenpo_result.draw
+        case "Z":
+            return jokenpo_result.win
+        case _:
+            raise Exception("End not mapped")
+    
 
 def jokenpo_score(opponent, you):
     opponent_hand = opponent_hand_converter(opponent)
@@ -44,15 +54,19 @@ def jokenpo_score(opponent, you):
     result = jokenpo_result.lost
     if opponent_hand == your_hand:
         result = jokenpo_result.draw
-    elif opponent_hand == jokenpo_hand.scissors and your_hand == jokenpo_hand.rock:
-        result = jokenpo_result.win
-    elif opponent_hand.value == your_hand.value - 1:
+    elif opponent_hand == jokenpo_hand.scissors and your_hand == jokenpo_hand.rock or opponent_hand.value == your_hand.value - 1:
         result = jokenpo_result.win
     return result.value + your_hand.value
+
+def correct_jokenpo_score(opponent, expected_end):
+    pass
 
 
 def total_score(strategy):
     return sum([jokenpo_score(i[0], i[1]) for i in strategy])
+
+def correct_total_score(strategy):
+    pass
 
 def day02_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
