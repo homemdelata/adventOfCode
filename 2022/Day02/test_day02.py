@@ -4,9 +4,16 @@ from day02 import jokenpo_score, total_score
 
 @pytest.mark.parametrize("opponent_hand, your_hand, expected_result",
                          [
+                             ("A", "X", 4),
                              ("A", "Y", 8),
+                             ("A", "Z", 3),
                              ("B", "X", 1),
+                             ("B", "Y", 5),
+                             ("B", "Z", 9),
+                             ("C", "X", 7),
+                             ("C", "Y", 2),
                              ("C", "Z", 6)
+                            
                          ])
 def test_given_hands_then_score(opponent_hand, your_hand, expected_result):
     assert jokenpo_score(opponent_hand, your_hand) == expected_result
