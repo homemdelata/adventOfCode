@@ -21,6 +21,12 @@ def sum_priorities(rucksack_list):
     return sum([get_item_priority(get_duplicate_item(rucksack)) for rucksack in rucksack_list])
 
 
+def group_badge(elves_group):
+    pass
+
+def sum_group_priorities(rucksack_list):
+    pass
+
 def day03_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
