@@ -22,11 +22,15 @@ def count_fully_contained(groups):
 
 
 def overlaps(pair):
-    pass
+    first_section = pair[0]
+    second_section = pair[1]
+    if (first_section[0] <= second_section[0] and first_section[1] >= second_section[1]) or (first_section[0] >= second_section[0] and first_section[1] <= second_section[1]) or (first_section[0] <= second_section[0] and first_section[1] >= second_section[0]) or (first_section[0] <= second_section[1] and first_section[1] >= second_section[1]):
+        return True
+    return False
 
 
 def count_overlaps(groups):
-    pass
+    return list(map(overlaps, groups)).count(True)
 
 
 def day04_part1(input_name):
@@ -39,7 +43,7 @@ def day04_part1(input_name):
 def day04_part2(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
-        result = None
+        result = count_overlaps(parse_pairs_list(input))
     print("Day 04 - Part 2 - {}: {}".format(input_name, result))
 
 
