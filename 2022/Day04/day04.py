@@ -2,8 +2,10 @@ import os
 import string
 import sys
 
+
 def parse_pairs_list(input):
     return [[list(map(int, section.split("-"))) for section in pair.split(",")] for pair in input.strip().split("\n")]
+
 
 def fully_contains(pair):
     first_section = pair[0]
@@ -14,8 +16,18 @@ def fully_contains(pair):
         return True
     return False
 
+
 def count_fully_contained(groups):
     return list(map(fully_contains, groups)).count(True)
+
+
+def overlaps(pair):
+    pass
+
+
+def count_overlaps(groups):
+    pass
+
 
 def day04_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
