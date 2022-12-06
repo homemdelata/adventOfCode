@@ -75,6 +75,14 @@ def rearrange_crates(crates_stacks, movements):
     return "".join([stack[-1:][0] for stack in crates_stacks])
 
 
+def rearrange_crates_with_new_crane(crates_stacks, movements):
+    for movement in movements:
+        crates_to_move = crates_stacks[movement.source - 1][-movement.quantity:]
+        crates_stacks[movement.destiny - 1] += crates_to_move
+        del crates_stacks[movement.source - 1][-movement.quantity:]
+    return "".join([stack[-1:][0] for stack in crates_stacks])
+
+
 def day05_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
@@ -86,7 +94,8 @@ def day05_part1(input_name):
 def day05_part2(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
-        result = None
+        plan = parse_plan(input)
+        result = rearrange_crates_with_new_crane(plan.stacks, plan.movements)
     print("Day 05 - Part 2 - {}: {}".format(input_name, result))
 
 
