@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+from datetime import datetime
 
 
 class Plan:
@@ -100,8 +101,51 @@ def day05_part2(input_name):
 
 
 if __name__ == "__main__":
-    day05_part1("test.txt")
-    day05_part1("input.txt")
 
+    start = datetime.now()
+    day05_part1("test.txt")
+    elapsed_time = datetime.now() - start
+    print("Part 1 - test: " + str(elapsed_time))
+    print("")
+
+    start = datetime.now()
     day05_part2("test.txt")
+    elapsed_time = datetime.now() - start
+    print("Part 2 - test: " + str(elapsed_time))
+    print("")
+
+    start = datetime.now()
+    day05_part1("input.txt")
+    print("Part 1 - input: " + str(elapsed_time))
+    print("")
+    
+    start = datetime.now()
     day05_part2("input.txt")
+    elapsed_time = datetime.now() - start
+    print("Part 2 - input: " + str(elapsed_time))
+    print("")
+
+#    start = datetime.now()
+#    day05_part1("aoc_2022_day05_large_input.txt")
+#    elapsed_time = datetime.now() - start
+#    print("Part 1 - input grande: " + str(elapsed_time))
+#    print("")
+#
+#    start = datetime.now()
+#    day05_part2("aoc_2022_day05_large_input.txt")
+#    elapsed_time = datetime.now() - start
+#    print("Part 2 - input grande: " + str(elapsed_time))
+#    print("")
+#
+#    start = datetime.now()
+#    day05_part1("aoc_2022_day05_large_input-2.txt")
+#    elapsed_time = datetime.now() - start
+#    print("Part 1 - input muito grande: " + str(elapsed_time))
+#    print("")
+#
+#    start = datetime.now()
+#    day05_part2("aoc_2022_day05_large_input-2.txt")
+#    elapsed_time = datetime.now() - start
+#    print("Part 2 - input muito grande: " + str(elapsed_time))
+#    print("")
+
