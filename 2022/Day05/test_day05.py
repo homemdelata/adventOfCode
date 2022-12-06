@@ -1,5 +1,5 @@
 import pytest
-from day05 import rearrange_crates
+from day05 import rearrange_crates, Movement
 
 
 @pytest.mark.parametrize("crates_stacks, movements, expected_message",
@@ -9,10 +9,10 @@ from day05 import rearrange_crates
                                 ["M","C","P"],
                                 ["P"]],
                                 [
-                                    "move 1 from 2 to 1",
-                                    "move 3 from 1 to 3",
-                                    "move 2 from 2 to 1",
-                                    "move 1 from 1 to 2"
+                                    Movement("move 1 from 2 to 1"),
+                                    Movement("move 3 from 1 to 3"),
+                                    Movement("move 2 from 2 to 1"),
+                                    Movement("move 1 from 1 to 2")
                                 ],
                                 "CMZ"
                             )
