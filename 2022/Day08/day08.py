@@ -2,8 +2,29 @@ import os
 import sys
 from datetime import datetime
 
-def count_visible_trees(trees_maps):
-    pass
+def parse_trees_map(trees_map_input):
+    return [list(map(int, [*line])) for line in trees_map_input.strip().split("\n")]
+
+def get_edge_count(trees_map):
+    return (len(trees_map) * 2) + ((len(trees_map[0]) - 2) * 2)
+
+def get_interior_count(trees_map):
+    interior_count = 0
+    for i in range(1, len(trees_map[1:-1])+1):
+        for j in range(1, len(trees_map[0][1:-1])+1):
+            top = all(item < trees_map[i][j] for item in [trees_map[top_i][j] for top_i in range(i)])
+            right = all(item < trees_map[i][j] for item in [trees_map[i][right_j] for right_j in range(j+1,len(trees_map[0]))])
+            bottom = all(item < trees_map[i][j] for item in [trees_map[bottom_i][j] for bottom_i in range(i+1,len(trees_map))])
+            left = all(item < trees_map[i][j] for item in [trees_map[i][left_j] for left_j in range(j)])
+            if top or right or bottom or left:
+                interior_count += 1
+    return interior_count
+
+def count_visible_trees(trees_map_input):
+    trees_map = parse_trees_map(trees_map_input)
+    edge_visible_count = get_edge_count(trees_map)
+    interior_visible_count = get_interior_count(trees_map)
+    return edge_visible_count + interior_visible_count
 
 def day08_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
