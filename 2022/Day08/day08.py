@@ -31,8 +31,45 @@ def count_visible_trees(trees_map_input):
     return edge_visible_count + interior_visible_count
 
 
+def get_higher_viewing_distance(trees_map):
+    result = -1
+    for i in range(1, len(trees_map[1:-1])+1):
+        for j in range(1, len(trees_map[0][1:-1])+1):
+            current_tree = trees_map[i][j]
+            top = 0
+            for item in [trees_map[top_i][j] for top_i in reversed(range(i))]:
+                top += 1
+                if item >= current_tree:
+                    break
+                
+            right = 0
+            for item in [trees_map[i][right_j] for right_j in range(j+1, len(trees_map[0]))]:
+                right += 1
+                if item >= current_tree:
+                    break
+                
+            bottom = 0
+            for item in [trees_map[bottom_i][j] for bottom_i in range(i+1, len(trees_map))]:
+                bottom += 1
+                if item >= current_tree:
+                    break
+                
+            left = 0
+            for item in [trees_map[i][left_j] for left_j in reversed(range(j))]:
+                left += 1
+                if item >= current_tree:
+                    break
+                
+            viewing_distance = top * right * bottom * left
+            if viewing_distance > result:
+                result = viewing_distance
+
+    return result
+
+
 def higher_viewing_distance(trees_map_input):
-    pass
+    trees_map = parse_trees_map(trees_map_input)
+    return get_higher_viewing_distance(trees_map)
 
 def day08_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
@@ -44,7 +81,7 @@ def day08_part1(input_name):
 def day08_part2(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
-        result = None
+        result = higher_viewing_distance(input)
     print("Day 08 - Part 2 - {}: {}".format(input_name, result))
 
 
