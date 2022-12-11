@@ -1,5 +1,5 @@
 import pytest
-from day10 import signal_strength
+from day10 import get_signal_strength_on_cycle
 
 program_input = """
 addx 15
@@ -160,5 +160,5 @@ noop"""
                             (program_input, 220, 3960)
                         ])
 def test_given_program_and_cycle_then_return_signal_strength(program, cycle, expected_signal_strength):
-    assert signal_strength(program, cycle) == expected_signal_strength
+    assert get_signal_strength_on_cycle(program, cycle) == expected_signal_strength
 
