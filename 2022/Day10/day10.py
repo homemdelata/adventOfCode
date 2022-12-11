@@ -37,9 +37,41 @@ def get_signal_strength_on_cycle(program_input, cycle):
 def sum_signal_strengths(program_input, cycles):
     return sum([get_signal_strength_on_cycle(program_input, cycle) for cycle in cycles])
         
-        
+
+def pixel_lit_or_dark(pixel, sprite_position):
+    pixel_position = pixel % 40
+    if pixel_position >= sprite_position-1 and pixel_position <= sprite_position+1:
+        return "#"
+    else:
+        return "."
+    
+
 def get_crt(program_input):
-    pass
+    program = parse_program(program_input)
+    x = 1
+    total_crt_size = sum([command[2] for command in program])
+    pixel_to_draw = 0
+    crt = ""
+    for command in program:
+        match command[0]:
+            case "addx":
+                crt += pixel_lit_or_dark(pixel_to_draw, x)
+                pixel_to_draw += 1
+                crt += pixel_lit_or_dark(pixel_to_draw, x)
+                pixel_to_draw += 1
+                x += command[1]
+            case "noop":
+                crt += pixel_lit_or_dark(pixel_to_draw, x)
+                pixel_to_draw += 1
+            case _:
+                raise Exception("Command not mapped")
+        
+    return crt
+
+def draw_crt(crt_line):
+    lines = [crt_line[i:i+40] for i in range(0, len(crt_line), 40)]
+    for line in lines:
+        print(line)
 
 def day10_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
@@ -51,8 +83,8 @@ def day10_part1(input_name):
 def day10_part2(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
-        result = None
-    print("Day 10 - Part 2 - {}: {}".format(input_name, result))
+        print("Day 10 - Part 2")
+        draw_crt(get_crt(input))
 
 
 if __name__ == "__main__":
