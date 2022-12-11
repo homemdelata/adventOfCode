@@ -1,5 +1,5 @@
 import pytest
-from day10 import get_signal_strength_on_cycle
+from day10 import get_signal_strength_on_cycle, get_crt
 
 program_input = """
 addx 15
@@ -161,4 +161,12 @@ noop"""
                         ])
 def test_given_program_and_cycle_then_return_signal_strength(program, cycle, expected_signal_strength):
     assert get_signal_strength_on_cycle(program, cycle) == expected_signal_strength
+
+@pytest.mark.parametrize("program, expected_crt",
+                        [
+                            (program_input, 
+                             "##..##..##..##..##..##..##..##..##..##..###...###...###...###...###...###...###.####....####....####....####....####....#####.....#####.....#####.....#####.....######......######......######......###########.......#######.......#######.....")
+                        ])
+def test_given_program_and_cycle_then_return_signal_strength(program, expected_crt):
+    assert get_crt(program) == expected_crt
 

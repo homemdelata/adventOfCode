@@ -37,6 +37,9 @@ def get_signal_strength_on_cycle(program_input, cycle):
 def sum_signal_strengths(program_input, cycles):
     return sum([get_signal_strength_on_cycle(program_input, cycle) for cycle in cycles])
         
+        
+def get_crt(program_input):
+    pass
 
 def day10_part1(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
