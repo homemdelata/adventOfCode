@@ -46,9 +46,19 @@ def tail_postitions(motions_input):
 
 def longer_rope_tail_postitions(motions_input):
     motions = parse_motions(motions_input)
-    current_head_position = (0, 0)
-    current_tail_position = (0, 0)
-    list_tail_positions = [current_tail_position]
+    current_rope_knots_position = [
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0),
+        (0, 0)
+        ]
+    list_tail_positions = [current_rope_knots_position[9]]
     for motion in motions:
         head_direction = (0, 0)
         match motion[0]:
@@ -64,20 +74,23 @@ def longer_rope_tail_postitions(motions_input):
                 raise Exception("Motion not mapped")
         
         for i in range(motion[1]):
-            current_head_position = tuple(map(operator.add, current_head_position, head_direction))
-            delta = tuple(map(operator.sub, current_head_position, current_tail_position))
-            if abs(delta[0]) > 1 or abs(delta[1]) > 1:
-                x = 0
-                y = 0
-                if abs(delta[0]) != 0:
-                    x = int(delta[0]/abs(delta[0]))
-                if abs(delta[1]) != 0:
-                    y = int(delta[1]/abs(delta[1]))
-                tail_direction = (x, y)
-                current_tail_position = tuple(map(operator.add, current_tail_position, tail_direction))
+            current_rope_knots_position[0] = tuple(map(operator.add, current_rope_knots_position[0], head_direction))
+            for knot_idx in range(len(current_rope_knots_position) - 1):
+                front_knot = current_rope_knots_position[knot_idx]
+                back_knot = current_rope_knots_position[knot_idx + 1]
+                delta = tuple(map(operator.sub, front_knot, back_knot))
+                if abs(delta[0]) > 1 or abs(delta[1]) > 1:
+                    x = 0
+                    y = 0
+                    if abs(delta[0]) != 0:
+                        x = int(delta[0]/abs(delta[0]))
+                    if abs(delta[1]) != 0:
+                        y = int(delta[1]/abs(delta[1]))
+                    back_direction = (x, y)
+                    current_rope_knots_position[knot_idx + 1] = tuple(map(operator.add, back_knot, back_direction))
             
-            if current_tail_position not in list_tail_positions:
-                list_tail_positions.append(current_tail_position)
+            if current_rope_knots_position[-1] not in list_tail_positions:
+                list_tail_positions.append(current_rope_knots_position[-1])
     
     return len(list_tail_positions)
 
@@ -93,7 +106,7 @@ def day09_part1(input_name):
 def day09_part2(input_name):
     with open(os.path.join(sys.path[0], input_name), 'r') as file:
         input = file.read()
-        result = None
+        result = longer_rope_tail_postitions(input)
     print("Day 09 - Part 2 - {}: {}".format(input_name, result))
 
 
