@@ -9,6 +9,9 @@ class Monkey:
         self._test = test
         self._throw_if_true = throw_if_true
         self._throw_if_false = throw_if_false
+        
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
 
     @property
     def items(self):
