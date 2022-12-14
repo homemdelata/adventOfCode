@@ -107,5 +107,4 @@ monkeys_list = [
                         ])
 def test_given_starting_monkeys_then_check_rounds(monkeys, round, expected_holding_items):
     list_of_monkeys = run_rounds(monkeys, round)
-    for i in len(list_of_monkeys):
-        assert list_of_monkeys[i] == expected_holding_items[i]
+    assert list_of_monkeys == expected_holding_items
